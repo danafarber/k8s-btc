@@ -1,0 +1,45 @@
+
+{
+  "apiVersion": "vlabs",
+  "location": "northeurope",
+  "properties": {
+    "orchestratorProfile": {
+      "orchestratorType": "Kubernetes",
+      "orchestratorVersion": "1.24.17",
+      "kubernetesConfig": {
+        "enableRbac": true,
+        "networkPlugin": "azure",
+        "networkPolicy": "calico",
+        "containerRuntime": "containerd"
+      }
+    },
+    "masterProfile": {
+      "count": 1,
+      "dnsPrefix": "aks-engine-cluster-dana",
+      "vmSize": "Standard_B2s",
+      "distro": "aks-ubuntu-20.04"
+    },
+    "agentPoolProfiles": [
+      {
+        "name": "agentpool",
+        "count": 1,
+        "vmSize": "Standard_B2s",
+        "distro": "aks-ubuntu-20.04"
+      }
+    ],
+    "linuxProfile": {
+      "adminUsername": "azureuser",
+      "ssh": {
+        "publicKeys": [
+          {
+            "keyData": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDMzGwYNN/ppZp7tV7j7G4DuKf/Io2dLyh3M5GzzNmbV+WnSCueFHXkMqeyTbpH/U77aPpwpZMjmH4yE+yNVyRwphMi48OAWQSjxr9NYxfqh8NeboaGPqmF/8O9AzaSMFGVVKR2XT6E1ELT/6kGV+H5eL88ItRgYUOO0Aq0MeMvHdg7C/CmZ5CqqtgNiJDjHCPzKrZl0zneg6ZCcMQxgOPHznj03mhGzTcRV89Myx8mzsiGBLtAe9yM46tXoKWv5phj02ckMreF20KitHli6/cqEqY0a/fOvvxtvaXEhKjZGTiGM/kt+uoja/6Fjzv41lJ+okUrz7LOCGpCBynyNsy0slIJWUb9Zwvx1bLWW+cR0HWGzu/T91gl5LGi2TKHny7M39+OLF58IaiDOYF72mbo3jqVa2D5KO+YyfgWOb3kNWWJk9kjlBlFVmTrEDs37CkBKNZFMcIq6mdAc0jv+DO3nSvEyYeXv1OFuZ85VzsyR/AOKF1FJl2x0BxDstmzq3QQWW/lobVFbTqSJovjYwtfbBIvc2G9h5x4d1fmzwKIyXC8VOXUfk0pkdrRFoHYKjq9s7h9W/84D4hhvN5b7Py5RExueC6LT+GWcRKnDUvQ5TagtBadVFdbBudqt8mNqZbJ2pL0jRzuWeus6t0yr78UqVBSsmjC77aXF5nhmLUIFQ== dana@DESKTOP-UEN93HO"
+          }
+        ]
+      }
+    },
+    "servicePrincipalProfile": {
+      "clientId": "c972eb66-df63-4f37-aac2-2018c635b859",
+      "secret": "3al8Q~dh95K97DcQfz0TR7uLDAdlKwUYi.3SpbFD"
+    }
+  }
+}
