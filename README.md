@@ -54,8 +54,15 @@ az login
 ### Deployment
 ```powershell
 # One command deployment
-.\scripts\deploy-complete-fixed.ps1
+.\scripts\deploy.ps1
 ```
+
+The script automatically:
+
+Creates Service Principal for cluster authentication
+Generates SSH key pair for VM access
+Creates cluster configuration from template
+Deploys complete infrastructure and applications
 
 **Deployment time: 10-15 minutes**
 

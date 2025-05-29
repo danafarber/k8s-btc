@@ -1,0 +1,14 @@
+btc-key
+btc-key.pub
+sp-credentials.json
+
+
+# AKS-Engine output directory
+_out/
+
+
+# IDE files
+.vscode/
+.vs/
+*.suo
+*.user

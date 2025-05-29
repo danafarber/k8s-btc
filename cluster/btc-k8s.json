@@ -1,4 +1,4 @@
-
+﻿
 {
   "apiVersion": "vlabs",
   "location": "northeurope",
@@ -32,14 +32,14 @@
       "ssh": {
         "publicKeys": [
           {
-            "keyData": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDMzGwYNN/ppZp7tV7j7G4DuKf/Io2dLyh3M5GzzNmbV+WnSCueFHXkMqeyTbpH/U77aPpwpZMjmH4yE+yNVyRwphMi48OAWQSjxr9NYxfqh8NeboaGPqmF/8O9AzaSMFGVVKR2XT6E1ELT/6kGV+H5eL88ItRgYUOO0Aq0MeMvHdg7C/CmZ5CqqtgNiJDjHCPzKrZl0zneg6ZCcMQxgOPHznj03mhGzTcRV89Myx8mzsiGBLtAe9yM46tXoKWv5phj02ckMreF20KitHli6/cqEqY0a/fOvvxtvaXEhKjZGTiGM/kt+uoja/6Fjzv41lJ+okUrz7LOCGpCBynyNsy0slIJWUb9Zwvx1bLWW+cR0HWGzu/T91gl5LGi2TKHny7M39+OLF58IaiDOYF72mbo3jqVa2D5KO+YyfgWOb3kNWWJk9kjlBlFVmTrEDs37CkBKNZFMcIq6mdAc0jv+DO3nSvEyYeXv1OFuZ85VzsyR/AOKF1FJl2x0BxDstmzq3QQWW/lobVFbTqSJovjYwtfbBIvc2G9h5x4d1fmzwKIyXC8VOXUfk0pkdrRFoHYKjq9s7h9W/84D4hhvN5b7Py5RExueC6LT+GWcRKnDUvQ5TagtBadVFdbBudqt8mNqZbJ2pL0jRzuWeus6t0yr78UqVBSsmjC77aXF5nhmLUIFQ== dana@DESKTOP-UEN93HO"
+             "keyData": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCgQOSYEToFYlxVyUKtd5aHlbUKbu10UmMv4e8T6sNX4gU0nSdfZRth8pqIZjhSxf+7j2mSX7WEzAA3/2uv4Nu2oOigJVuZ0fT/kx1biVpjbeUf4wn5I+abFbcmdt0scJ5/NtDGN6XwF/QSUgshHEt0ZQxM1Kjf4aNk+dCPOqpLS4cM1yPXcmqXmYgverFD0N0dEglvNGSxc14Qd6DOxBcncpLW0skvG1t3X6V4xBEPxxmB2rJjAxc90xh7bo22BX++p32RCbj53V4HtY11WvR4L79tOsCU9yMSIWG17m5nS9CpLHmYSKFt2UY+7PavuKS/+TCUBocATymk0otrireQxuQ7xUPlhAn1HaXO2bL9IO/0qY+XAv0HtsWO8ykScV0SMEdFUpkRyQkZUtU+T1A2Mug7scVHKPXgUg2QxTqLnAYHvsq/51zU4QOGPWrmRSpMBVQ75x7rAcE68WWEExKJNbPGZujrAn1AQAd8BulFkm1foSmveStfyn2AmEbg4PryUrq/OoIiODWzBRRPcrqXE8QRUer2eC3FkQBUkmXTMRbnqTC/UqFJk4A/8Uw6+WnyasEYuI/xICN6pxcyJ20i4jXki5R2vPF8NkbRQ6VytF4m31kg6D3kgW/4XW8xE3o6BmuH/FsUFcqb2QjykeMvxGeMoVCdMvvjPTmpu944Iw== dana@DESKTOP-UEN93HO"
           }
         ]
       }
     },
     "servicePrincipalProfile": {
-      "clientId": "c972eb66-df63-4f37-aac2-2018c635b859",
-      "secret": "3al8Q~dh95K97DcQfz0TR7uLDAdlKwUYi.3SpbFD"
+      "clientId": "fe88228d-f98d-4aa3-b8e9-59d7f5a917db",
+      "secret": "-Zk8Q~qiWuupjV182Y3xKWUc45PdPjkKhB2uNdlD"
     }
   }
 }

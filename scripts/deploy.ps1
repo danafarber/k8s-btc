@@ -1,4 +1,4 @@
-# deploy.ps1 - Complete BTC K8s Cluster Deployment 
+# deploy-complete-fixed.ps1 - Complete BTC K8s Cluster Deployment (Fixed)
 
 param(
     [string]$ResourceGroup = "rg-k8s-new",
@@ -49,7 +49,7 @@ try {
 }
 
 # Check required files
-$requiredFiles = @("cluster/$ApiModelFile", "k8s/deploy.yaml")
+$requiredFiles = @("cluster/btc-k8s.json", "k8s/deploy.yaml")
 foreach ($file in $requiredFiles) {
     if (Test-Path $file) {
         Write-Host "Found: $file" -ForegroundColor Green
@@ -73,10 +73,54 @@ if ($rgExists -eq "false") {
     Write-Host "Resource Group exists: $ResourceGroup" -ForegroundColor Green
 }
 
+# Create Service Principal if not exists
+Write-Host "Creating Service Principal..." -ForegroundColor Yellow
+$spExists = Test-Path "sp-credentials.json"
+if (!$spExists) {
+    $spName = "btc-k8s-sp-$(Get-Random -Maximum 9999)"
+    $sp = az ad sp create-for-rbac --name $spName --role Contributor --scopes "/subscriptions/$(az account show --query id -o tsv)" | ConvertFrom-Json
+    
+    $spInfo = @{
+        clientId = $sp.appId
+        clientSecret = $sp.password
+    }
+    $spInfo | ConvertTo-Json | Out-File "sp-credentials.json"
+    Write-Host "Service Principal created: $($sp.appId)" -ForegroundColor Green
+} else {
+    $spInfo = Get-Content "sp-credentials.json" | ConvertFrom-Json
+    Write-Host "Using existing Service Principal: $($spInfo.clientId)" -ForegroundColor Green
+}
+
+# Generate SSH key if not exists
+Write-Host "Generating SSH key..." -ForegroundColor Yellow
+if (!(Test-Path "btc-key.pub")) {
+    ssh-keygen -t rsa -b 4096 -f "btc-key" -N '""'
+    Write-Host "SSH key generated" -ForegroundColor Green
+} else {
+    Write-Host "Using existing SSH key" -ForegroundColor Green
+}
+$publicKey = Get-Content "btc-key.pub" -Raw
+
+# Create cluster definition from template
+Write-Host "Creating cluster definition from template..." -ForegroundColor Yellow
+if (!(Test-Path "cluster/btc-k8s.json")) {
+    Write-Error "Template file not found: cluster/btc-k8s.json"
+    exit 1
+}
+
+$clusterTemplate = Get-Content "cluster/btc-k8s.json" -Raw
+$clusterConfig = $clusterTemplate.Replace("REPLACE_WITH_SSH_PUBLIC_KEY", $publicKey.Trim())
+$clusterConfig = $clusterConfig.Replace("REPLACE_WITH_SERVICE_PRINCIPAL_ID", $spInfo.clientId)
+$clusterConfig = $clusterConfig.Replace("REPLACE_WITH_SERVICE_PRINCIPAL_SECRET", $spInfo.clientSecret)
+
+# Save the generated config (will be ignored by git)
+$clusterConfig | Out-File -FilePath "cluster/btc-k8s.json" -Encoding UTF8
+Write-Host "Cluster definition created with your credentials" -ForegroundColor Green
+
 # Generate ARM templates if needed
 if (!(Test-Path "$OutputDir/azuredeploy.json")) {
     Write-Host "Generating ARM templates with AKS-Engine..." -ForegroundColor Yellow
-    aks-engine generate --api-model "cluster/$ApiModelFile" --output-directory $OutputDir
+    aks-engine generate --api-model "cluster/btc-k8s.json" --output-directory $OutputDir
     
     if ($LASTEXITCODE -eq 0) {
         Write-Host "ARM templates generated" -ForegroundColor Green
@@ -119,7 +163,7 @@ if ($publicIPs) {
     $masterIP = $publicIPs
 } else {
     # Fallback method
-    $masterIP = "20.82.233.71"  # Use known IP 
+    $masterIP = "20.82.233.71"  # Use known IP from previous run
 }
 
 if (!$masterIP) {
@@ -233,7 +277,15 @@ if ($serviceAPod) {
     $serviceALogsCmd = "ssh -i `"$sshKeyPath`" -o StrictHostKeyChecking=no azureuser@$masterIP `"kubectl logs $serviceAPod --tail=20`""
     Invoke-Expression $serviceALogsCmd
     
-   
+    # Test Bitcoin API endpoints
+    Write-Host "`nTesting Bitcoin API endpoints:" -ForegroundColor Yellow
+    Write-Host "Health check:" -ForegroundColor Gray
+    $healthCmd = "ssh -i `"$sshKeyPath`" -o StrictHostKeyChecking=no azureuser@$masterIP `"kubectl exec $serviceAPod -- curl -s http://localhost:5000/health`""
+    Invoke-Expression $healthCmd
+    
+    Write-Host "`nBitcoin price:" -ForegroundColor Gray
+    $priceCmd = "ssh -i `"$sshKeyPath`" -o StrictHostKeyChecking=no azureuser@$masterIP `"kubectl exec $serviceAPod -- curl -s http://localhost:5000/price`""
+    Invoke-Expression $priceCmd
 } else {
     Write-Host "Service A pod not found or not running" -ForegroundColor Red
 }
@@ -244,6 +296,10 @@ if ($serviceBPod) {
     $serviceBLogsCmd = "ssh -i `"$sshKeyPath`" -o StrictHostKeyChecking=no azureuser@$masterIP `"kubectl logs $serviceBPod --tail=20`""
     Invoke-Expression $serviceBLogsCmd
     
+    # Test Service B health
+    Write-Host "`nTesting Service B health:" -ForegroundColor Yellow
+    $healthBCmd = "ssh -i `"$sshKeyPath`" -o StrictHostKeyChecking=no azureuser@$masterIP `"kubectl exec $serviceBPod -- curl -s http://localhost:8080/health`""
+    Invoke-Expression $healthBCmd
 } else {
     Write-Host "Service B pod not found or not running" -ForegroundColor Red
 }
