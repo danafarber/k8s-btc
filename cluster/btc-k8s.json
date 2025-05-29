@@ -32,14 +32,14 @@
       "ssh": {
         "publicKeys": [
           {
-             "keyData": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCgQOSYEToFYlxVyUKtd5aHlbUKbu10UmMv4e8T6sNX4gU0nSdfZRth8pqIZjhSxf+7j2mSX7WEzAA3/2uv4Nu2oOigJVuZ0fT/kx1biVpjbeUf4wn5I+abFbcmdt0scJ5/NtDGN6XwF/QSUgshHEt0ZQxM1Kjf4aNk+dCPOqpLS4cM1yPXcmqXmYgverFD0N0dEglvNGSxc14Qd6DOxBcncpLW0skvG1t3X6V4xBEPxxmB2rJjAxc90xh7bo22BX++p32RCbj53V4HtY11WvR4L79tOsCU9yMSIWG17m5nS9CpLHmYSKFt2UY+7PavuKS/+TCUBocATymk0otrireQxuQ7xUPlhAn1HaXO2bL9IO/0qY+XAv0HtsWO8ykScV0SMEdFUpkRyQkZUtU+T1A2Mug7scVHKPXgUg2QxTqLnAYHvsq/51zU4QOGPWrmRSpMBVQ75x7rAcE68WWEExKJNbPGZujrAn1AQAd8BulFkm1foSmveStfyn2AmEbg4PryUrq/OoIiODWzBRRPcrqXE8QRUer2eC3FkQBUkmXTMRbnqTC/UqFJk4A/8Uw6+WnyasEYuI/xICN6pxcyJ20i4jXki5R2vPF8NkbRQ6VytF4m31kg6D3kgW/4XW8xE3o6BmuH/FsUFcqb2QjykeMvxGeMoVCdMvvjPTmpu944Iw== dana@DESKTOP-UEN93HO"
+             "keyData": "REPLACE_WITH_SSH_PUBLIC_KEY"
           }
         ]
       }
     },
     "servicePrincipalProfile": {
-      "clientId": "fe88228d-f98d-4aa3-b8e9-59d7f5a917db",
-      "secret": "-Zk8Q~qiWuupjV182Y3xKWUc45PdPjkKhB2uNdlD"
+      "clientId": "REPLACE_WITH_SERVICE_PRINCIPAL_ID",
+      "secret": "REPLACE_WITH_SERVICE_PRINCIPAL_SECRET"
     }
   }
 }
